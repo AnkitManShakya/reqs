@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./LogIn.css";
+import $ from 'jquery'
 
 export default function LogIn({ loggedIn, setLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -11,16 +12,32 @@ export default function LogIn({ loggedIn, setLoggedIn }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     $.ajax({
+      url: "https://reqres.in/api/login",
+      type: "POST",
+      data: {
+          email : email,
+          password: password
+      },
+      success: function(response){
+        if (response.token) {
+            setLoggedIn(true)
+          }
+      }
+  });
     
-    const response = await fetch("https://reqres.in/api/login", {
-      method: "POST",
-      body: JSON.stringify({email , password}),
-    })
-      .then((response) => response.json())
-      .then(json => console.log(json))
-      .catch((err) => {
-        console.log("err");
-      });
+  //   const response = await fetch(, {
+  //     method: "POST",
+  //     body: JSON.stringify({email , password}),
+  //   })
+  //     .then((response) => response.json())
+  //     .then(json => console.log(json))
+  //     .catch((err) => {
+  //       console.log("err");
+  //     });
+    
+    
   };
 
   if (loggedIn) {

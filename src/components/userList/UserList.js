@@ -21,8 +21,6 @@ export default function UserList({ loggedIn }) {
       </div>
     );
   } else {
-      return (
-          <div>Not LoggedIn</div>
-      )
+    return <div>Not LoggedIn</div>;
   }
 }
